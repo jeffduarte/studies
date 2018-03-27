@@ -16,6 +16,9 @@
         "psr-4": {
             "app\\": "app",
             "asw\\": ["services", "jobs"]
-        }
+        },
+        
+        "files": ["functions/helpers.php"]
     }
+    
 }

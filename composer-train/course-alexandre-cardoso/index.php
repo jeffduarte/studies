@@ -1,7 +1,7 @@
 <?php 
 
 require "vendor/autoload.php";
-
+// require "functions/helpers.php";
 
 
 
@@ -13,5 +13,5 @@ $register = new asw\jobs\Register;
 
 // echo $email->send();
 // echo $produto->create();
-echo $search->search();
-echo $register->register();
+// echo $search->search();
+dd($register->register());

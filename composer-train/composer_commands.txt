@@ -10,3 +10,34 @@ composer require phpmailer/phpmailer --> instala o php mailer
 composer update
 
 composer dump-autoload -o
+
+composer init
+
+
+
+
+{
+    "name": "jefersonchange/curso-composer",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Jeferson Change",
+            "email": "jefersonchange@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.0",
+        "symfony/var-dumper": "^3.4",
+        "php-activerecord/php-activerecord": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app",
+            "asw\\": ["services", "jobs"]
+        },
+        
+        "files": ["functions/helpers.php"]
+    }
+    
+}
+

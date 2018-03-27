@@ -10,6 +10,7 @@ class ComposerStaticInit6f0e0363012454e97135b5470cae731d
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6e60481d8c04e99474e2ba7b3658ab5a' => __DIR__ . '/..' . '/php-activerecord/php-activerecord/ActiveRecord.php',
+        'ff4c0435a5577125b08f8456076327d6' => __DIR__ . '/../..' . '/functions/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
