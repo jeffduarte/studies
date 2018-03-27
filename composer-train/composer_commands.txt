@@ -1,0 +1,8 @@
+#linux instalation
+
+https://getcomposer.org/download/ --> nesse link contem o comando para instalação pelo terminal
+mv composer .phar /usr/local/bin/composer --> torna o composer acessível globalmente pelo terminal
+
+você deve fechar e abrir chaves dentro do composer.json para ele começar a funcionar e se tornar um json válido.
+
+composer require phpmailer/phpmailer --> instala o php mailer
