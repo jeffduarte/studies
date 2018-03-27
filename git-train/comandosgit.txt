@@ -1,0 +1,53 @@
+git stash list --> lista os stashs que é uma pilha de estados a parte do projeto
+git stash save "mensagem tal" --> salva o estado atual do código na pilha de stash
+git stash pop --> aplica o último stash salvo e remove ele da pilha.
+git stash apply stash@{index} --> aplica um determinado stash mas não deleta
+git stash drop stash@{index} --> deleta determinado stash da pilha
+git stash clear --> limpa todos stashs salvos
+git stash branch feature5 --> cria um novo branch a partir de um stash direto e dropa do stash, você deve estar no stash desejado (ou n)
+git stash branch <branchname> [<stash>]
+
+git init --> inicia o git
+git add -A --> coloca todos arquivos na staging area
+git commit -m "Alteração na função ADD" --> commita com mensagem
+git log --oneline --decorate --all --graph --> git log gay
+git branch --> mostra a lista de branchs criados
+git branch feature1 --> cria o branch feature1
+cat .git/HEAD --> n sei
+get checkout feature1 --> alterna para o branch feature1
+git commit --amend -m "Completed Subtract Function" --> sobrescreve último commit
+git log --stat --> git log com perfumarias
+git merge feature1 --> mescla o branch que o head aponta (ou seja o atual) com o branch feature1
+git branch -d feature1 --> deleta o branch feature1
+git checkout -b feature2 --> passa para o branch feature2 criado automaticamente pelo parâmetro -b
+git remote add origin http://github.com/rodrigobranas/gitpresentation --> adiciona directório remoto com nome origin com link tal
+git remote --verbose ou git remote -v --> mostra os directórios remotos adicionados e seus nomes
+git push origin master --> joga os arquivos do branch master para um directório remoto com o nome de origin, --all vai todos branchs
+git pull origin master --> puxa os arquivos do branch master para um directório local com o nome de origin, --all vai todos branchs
+git clone https://github.com/rodrigobranas/gitpresentation gitpresentation2 --> clona repositório para pasta gitpresentation2
+git fetch --> merge parcial do directorio remoto, puxa os arquivos mas não sobrescreve o commit atual
+git reset --soft a4b1 reseta mantendo o arquivo na staging area --mixed --hard também existem
+git reflog --> mostra os commits descartados no qual você pode voltar com o comando reset
+git commit -a -m "message" --> commit direto sem precisar add na stage area
+git diff --staged  --> diff entre a staging area
+git diff 0da94be  59ff30c --> diff entre dois commits
+gitk --> interface gráfica
+git reset HEAD <nome do arquivo> --> retira determinado arquivo da staging area
+git checkout -- <nome do arquivo> --> reverte alterações no determinado arquivo no working directory(na máquina msm)
+git rm <nome do arquivo> ou * (+- = git add) --> deleta o arquivo conflitante da staging area caso ele tenha sido deletado antes
+git tag -a v1.0 -m "versao 1.0" --> tag anotada com informações de quem criou
+git tag -a v0.0 <commit code> --> tagueia um determinado commit
+git show <tag> --> mostra informações sobre essa tag
+git checkout v0.0 --> vai para o commit daquela tag
+git tag -d v0.0 --> deleta tag
+
+//massa
+git branch teste (ou homologa) --> deixar um ambiente de homologação no seu programa
+
+
+//SERVER
+
+git init --bare
+git clone file:////vmserver/projetos/cliente1 prjrede1
+ssh-keygen --> monta chanve para acesso livre do computador ao github
+ctrl+insert == ctrl+c --> em terminais
