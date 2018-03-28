@@ -1,6 +1,6 @@
 //PHP Commands and hints
 
-
+dd($_SERVER['REQUEST_METHOD']); --> pega o método que você está trabalhando GET OU POST
 
 	"form-snippet": {
 		"prefix": "formcont",
