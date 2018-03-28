@@ -10,7 +10,6 @@ require "vendor/autoload.php";
 $search = new asw\services\Search;
 $register = new asw\jobs\Register;
 
-
 // echo $email->send();
 // echo $produto->create();
 // echo $search->search();

@@ -1,7 +1,7 @@
 <h2>contato.php</h2>
 
 
-<form action="" method="post">
+<form action="pages/forms/contato.php" method="post">
     <legend>Contato</legend>
 
 <div class="form-group">
