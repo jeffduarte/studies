@@ -4,8 +4,7 @@ require "../../../bootstrap.php";
 
 if (isEmpty()){
     flash('message','Preencha todos os campos');
-
-    header("location:/studies/PHP-train/php-devclass/public/?page=contato");
+    return redirect('contato');
 }
 
 $validate = validate([
@@ -16,5 +15,16 @@ $validate = validate([
 
 ]);
 
+$data = [
+    'quem' => $validate->name,
+    'email' => $validate->email,
+    'para' => 'jeff.everyaction@gmail.com',
+    'mensagem' => $validate->message,
+    'assunto' => $validate->subject
+];
 
-dd($validate->name);
+if(send($data)) {
+    flash('message', 'Email enviado com sucesso', 'success');
+
+    return redirect("contato");
+}

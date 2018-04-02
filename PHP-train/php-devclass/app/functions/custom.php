@@ -19,3 +19,12 @@ function request() {
     return $_GET;
 
 }
+
+
+function redirect ($target) {
+    return header("location:/studies/PHP-train/php-devclass/public/?page={$target}");
+}
+
+function redirectToHome() {
+    return header("location:/studies/PHP-train/php-devclass/public/");
+}
