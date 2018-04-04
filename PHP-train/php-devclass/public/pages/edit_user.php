@@ -20,7 +20,7 @@ $user = find('users', 'id', $_GET['id']);
 
 <div class="form-group">
     <label for="">Sobrenome</label>
-    <input type="text" name="surname" class="form-control" id="" value="<?=$user->surname?>" placeholder="Digite o assunto">
+    <input type="text" name="surname" class="form-control" id="" value="<?=$user->surname?>" placeholder="Digite o sobrenome">
 </div>
 
 <div class="form-group">
@@ -34,5 +34,7 @@ $user = find('users', 'id', $_GET['id']);
 </div>
 
 <button type="submit" class="btn btn-primary">Submit</button>
+<a class="btn btn-success"href="/studies/PHP-train/php-devclass/public/">Voltar</a>
+
 
 </form>

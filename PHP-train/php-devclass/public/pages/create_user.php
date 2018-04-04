@@ -26,4 +26,6 @@
 
 <button type="submit" class="btn btn-primary">Submit</button>
 
+<a class="btn btn-success"href="/studies/PHP-train/php-devclass/public/">Voltar</a>
+
 </form>

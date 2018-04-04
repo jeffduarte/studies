@@ -1,7 +1,7 @@
-<a href="?page=create_user">create user</a>
+<a class="btn btn-success" href="?page=create_user">create user</a>
 <h2> Página Inicial </h2>
 
-
+<?= get('message'); ?>
 
 <table class="table table-striped table-hover">
     <thead>
