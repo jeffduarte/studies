@@ -93,7 +93,7 @@ function delete($table, $field, $value) {
 
     $sql = "delete from $table where $field = :$field";
 
-    dd($value);
+    // dd($value);
     $delete = $pdo->prepare($sql);
     $delete->bindValue($field, $value);
     return $delete->execute();
