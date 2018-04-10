@@ -1,0 +1,57 @@
+Joomla folder structure information.
+
+Todas as pastas do joomla são relacionadas ao front-end, menos administrator e installation que são aplicações diferentes de back-end
+
+administrator >>
+
+bin >> Keychain class, usado para quando o joomla precisa de salvar dados ecriptados
+
+cache >> arquivos temporários que o joomla faz
+
+CLI >> for command line scripts, comandos que você queira que interaja com seu site joomla
+por exemplo: você criou um componente, e esse componente é um jogo, um jogo baseado em turnos, você consegue interagir
+com o database via scripts para manipular os  turnos com comandos gerados por esses scripts.
+
+componentes >> aqui é onde fica todas aplicações componentes, você vai encontrar uma pasta para cada componente com prefixo com_
+
+images >> lugar onde ficam as imagens que podem ser modificadas pelo usuário, imagens que podem ser modificadas com o temporários
+
+includes >> tem todo o conteúdo bootstrap que o joomla precisa para iniciar, se não achar o config.php vai tentar instalar se não houver
+pasta de instalação vai soltar uma exceção.
+
+installation >> pasta que contém os arquivos necessários para configurar a instalação do joomla, depois de instalado pode ser removida completamente
+
+language >> fica os arquivos de idioma do joomla
+
+layouts >> guarda layouts comuns que podem ser compartilhados
+
+libraries >> tem todos os códigos que o joomla precisa para funcionar, contem aplicações de desenvolvedores terceiros como utf8, simplepi, etc
+você pode criar inclusive sua própria biblioteca então você vai criar código que é visível entre todos componentes e módulos.
+
+log >> é uma pasta que contém log sobre todo o joomla, é uma pasta que você não quer que seja visível para o exterior, você pode acionar a
+classe Jlog que está dentro dessa pasta e manipula o log, grava informações que poderiam ser feias para mostrar aos usuários
+
+media >> você coloca assets (arquivos auxiliares como css, js) para os seus componentes, módulos ou (plg_)plugins,  
+
+module >> tem todos os modulos do joomla (_mod) 
+
+plugins >> plugins do joomla 
+
+template >> tem os templates do joomla, já vem com três premoldados
+
+temp >> arquivos que são temporários, como algum que sobrou de um upload
+
+joomla is formed by three applications
+
+the site application, some times called front-end
+
+the administrator application, some times called back-end
+
+and the install application.
+
+you can note that by seen inside documents like index.php
+
+//instantiate the application
+$app = JFactory::getApplication('administrator');
+$app = JFactory::getApplication('site');
+$app = JFactory::getApplication('InstallationApplicationweb');
