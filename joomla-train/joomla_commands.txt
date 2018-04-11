@@ -2,7 +2,7 @@ Joomla folder structure information.
 
 Todas as pastas do joomla são relacionadas ao front-end, menos administrator e installation que são aplicações diferentes de back-end
 
-administrator >>
+administrator >> toda a aplicação de menu do back-end, ela é importante, template de back-end
 
 bin >> Keychain class, usado para quando o joomla precisa de salvar dados ecriptados
 
@@ -40,6 +40,8 @@ plugins >> plugins do joomla
 template >> tem os templates do joomla, já vem com três premoldados
 
 temp >> arquivos que são temporários, como algum que sobrou de um upload
+
+
 
 joomla is formed by three applications
 

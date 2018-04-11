@@ -1,0 +1,36 @@
+make sure to read a code without (...) this if trigger a statement, else this is going to happen, so, later they will make that (...)
+
+it's inefficient, you are reading like a computer, you have to read like a human being, watch the meaning of things, what it's up to what each part of code is designed for, and later join this understanding in something useful
+
+In thirds codes you have to make a human read, so, after understand the meaning of the code you have to make a computer read, or table test to fetch the bug, if it's a logic bug, in the human read you will note that is something wrong.
+
+focus on the eyes;
+
+site that prepare peoples to entrance exam with videos and simulated exams.
+
+
+
+bindParam
+
+- Insert In tabela (campo1, campo2, campo3, campo4) Values (?, ?, ?, ?);
+
+prepare
+
+bindParam(1, $campo1, PDO::PARAM_STR)
+
+- Insert In tabela (campo1, campo2, campo3, campo4) Values (:campo1, :campo2, :campo3 ?);
+bindValue($campo1, $valor1)
+
+
+foreach($_POST as $campo => $valor)
+{
+    $$campo = $valor;
+
+    $nome_do_campo = sanitize($valor);
+}
+
+
+sanitize('campo', 's');
+
+
+$$value == coloca a string dentro da variável como uma nova variável.
