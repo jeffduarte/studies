@@ -5,3 +5,7 @@ function dd($dump){
     
     die();
 }
+
+function getRoute ($uri, $uriLength) {
+    return substr($uri, $uriLength);
+}

@@ -1,12 +1,17 @@
 <?php
 
+use app\classes\Uri;
+use app\classes\Routes;
+
 require "../bootstrap.php";
 
-$rontes = [
-    '/studies/PDO-train/asolucoes-PDO/public/' => 'controllers/index.php'
+$routes = [
+    '/' => 'controllers/index.php'
 ];
 
-$uri = $_SERVER['REQUEST_URI'];
-// $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+$uri = Uri::load();
+
+require Routes::load($routes, $uri);
 
 dd($uri);
