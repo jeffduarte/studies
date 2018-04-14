@@ -5,13 +5,14 @@ namespace app\classes;
 
 
 class Routes {
-    public function load($routes, $uri)
+    public static function load($routes, $uri)
     {
         if(!array_key_exists($uri, $routes)) {
-            throw new \Exception("Rota não existe {$uri}");
+            // throw new \Exception("Rota não existe {$uri}");
+            return "../app/views/error.php";
+
         }
         
-        
-        return "../app/$routes[$uri]}";
+        return "../app/{$routes[$uri]}";
     }
 }

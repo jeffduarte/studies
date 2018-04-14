@@ -12,6 +12,6 @@ $routes = [
 
 $uri = Uri::load();
 
-require Routes::load($routes, $uri);
+$uri = getRoute($uri, 45);
 
-dd($uri);
+require Routes::load($routes, $uri);
