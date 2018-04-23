@@ -1,0 +1,63 @@
+composer create-project --prefer-dist laravel/laravel nome_do_projeto
+
+migration           --> é responsável por criar o schema da tabela, você vai no arquivo de migration e coloca as colunas necessárias
+php artisan migrate --> executa o que está dentro do migrate atualizando assim o banco de dados
+closure             --> Função callback dentro de alguma rota que faz algo quando ela é chamada.
+
+quando você faz o migrate ele cria uma tabela users e passwords, que é padrão do laravel
+
+A função up no migration serve para atualizar a tabela, a função down é para desfazer em caso de rollback
+
+
+//adicionar colunas na tabela do migration
+$table->string('name');
+$table->string('email');
+$table-text('mensagem');
+
+
+//Create a Models directory or whatever your want to named it, put it in inside app directory. The Directory structure should look like:
+
+laravel-project
+     /app
+        /Console
+        /Events
+        /Exceptions
+        /Http
+        /Jobs
+        /Listeners
+        /Provider
+       /Model
+
+//creating a new model by php artisan
+php artisan make:model Models/ModelName 
+
+
+//Lá no arquivo de rotas web.php você coloca na closure logicamente para criar uma nova classe do tipo do model correspondente a nova linha da tabela que deve ser criada, dentro dessa nova instância do model você preenche as colunas da tabela, geralmente com os dados recebidos pela closure com o formulário ou seja lá quem tenha enviado o request e depois salva as alterações com o método save();
+
+Exemplo
+
+Route::post('/enviar', function(Illuminate\Http\Request $request){
+ 
+	$contato = new App\Contato();
+	$contato->nome = $request->get('nome');
+	$contato->email = $request->get('email');
+	$contato->mensagem = $request->get('mensagem');
+ 
+	$contato->save();
+ 
+	echo "Sua mensagem foi armazenada com sucesso! Código: " . $contato->id;
+});
+
+
+
+resources/view/ --> onde ficam as views;
+routes/web.php  --> mapa de uma aplicação laravel, nele deve estar escrito todas as “URL`s” que a aplicação responde.
+$request->all() --> retorna todos os dados de um formulário
+
+php artisan tinker                  --> prompt de comando do laravel que você pode checar diversas coisas como o banco de dados
+DB::connection()->getDatabaseName() --> pega o nome do atual banco de dados contido no .ENV na pasta raiz do laravel
+
+php artisan make:model Contato -m --> criando um model, ou seja, uma tabela do banco de dados, e já cria o migration junto Com o parâmetro -m
+
+
+
