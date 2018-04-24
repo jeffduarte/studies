@@ -1,12 +1,33 @@
 composer create-project --prefer-dist laravel/laravel nome_do_projeto
 
-migration           --> é responsável por criar o schema da tabela, você vai no arquivo de migration e coloca as colunas necessárias
-php artisan migrate --> executa o que está dentro do migrate atualizando assim o banco de dados
-closure             --> Função callback dentro de alguma rota que faz algo quando ela é chamada.
-
+migration                                     --> é responsável por criar o schema da tabela, você vai no arquivo de migration e coloca as colunas necessárias
+php artisan migrate                           --> executa o que está dentro do migrate atualizando assim o banco de dados
+closure                                       --> Função callback dentro de alguma rota que faz algo quando ela é chamada.
+Contato::all()                                --> traz os dados da classe no bd
+php artisan make:request ContatoEnviarRequest --> Cria uma requisição para filtrar e verificar  os dados
 quando você faz o migrate ele cria uma tabela users e passwords, que é padrão do laravel
+php artisan make:seed CategoriaSeed           --> Cria um seed para você alimentar a base de dados
+php artisan db:seed --class="CategoriaSeed"   --> Insere os dados no banco
+php artisan make:migration --table="contatos" alter_contatos_table --> adiciona migration para alteração em uma tabela
+php artisan migrate:rollback                  --> Retorna pro estado anterior (Aciona função down de dentro do migrate)
+php artisan make:auth                         --> cria auth na view
+
+//CAMINHOS IMPORTANTES
+
+app/                            --> Classes.
+App/Http/Requests;              --> Requests(para filtrar dados de um formulário por exemplo).
+App/Http/Controllers/           --> A rota te envia para uma view, a view manda para um controller, controller aciona o model e te envia para outra view.
+database/migrations             --> Todas manipulações de alteração e criação de tabelas são feitas aqui pelas migrations.
+database/seeds                  --> Arquivos de alimentação de dados persistentes (Preenche o banco de dados).
+resources/views                 --> Front end, arquivos de visualização pelo usuário.
+routes/web.php                  --> Rotas.
+
+
+
+Coloque o authorize true quando for fazer um request
 
 A função up no migration serve para atualizar a tabela, a função down é para desfazer em caso de rollback
+
 
 
 //adicionar colunas na tabela do migration
@@ -61,3 +82,296 @@ php artisan make:model Contato -m --> criando um model, ou seja, uma tabela do b
 
 
 
+
+	
+php artisan make:controller ContatoController --> cria um controller na pasta app/Http/Controllers,
+
+edite o controller e adicione os métodos index() , enviar()  e listar()
+
+<?php
+ 
+namespace App\Http\Controllers;
+ 
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Contato;
+ 
+class ContatoController extends Controller
+{
+	/**
+     * Exibe o formulário para enviar uma mensagem
+     */
+    public function index(){
+    	return view('welcome');
+    }
+ 
+	/**
+     * Insere a mensagem no banco de dados
+     */
+    public function enviar(Request $request){
+		$contato = new Contato();
+ 
+		$contato->nome = $request->get('nome');
+		$contato->email = $request->get('email');
+		$contato->mensagem = $request->get('mensagem');
+ 
+		$contato->save();
+ 
+		echo "Sua mensagem foi armazenada com sucesso! Código: " . $contato->id;
+    }
+ 
+	/**
+     * Exibe uma lista com as mensagens cadastradas
+     */
+    public function lista(){
+    	return view('lista', array('contatos' => Contato::all()));
+    }
+}
+
+depois de criar os controllers podemos remover as closures dentro das rotas e apontá-las para os métodos do controller que criamos.
+
+Route::get('/', 'ContatoController@index');
+Route::post('/enviar', 'ContatoController@enviar');
+Route::get('/lista', 'ContatoController@lista');
+
+
+     * Insere a mensagem no banco de dados
+     */
+     public function enviar(Request $request, Contato $contato){
+		$contato->nome = $request->get('nome');
+		$contato->email = $request->get('email');
+		$contato->mensagem = $request->get('mensagem');
+ 
+		$contato->save();
+ 
+		echo "Sua mensagem foi armazenada com sucesso! Código: " . $contato->id;
+    
+
+Quando você cria uma classe você pode passar ela como parâmetro que já vai aquela variável instanciada para dentro do método
+
+Exemplo:
+
+
+Criamos uma classe para notificar o email quando houver cadastro
+
+
+<?php
+ 
+namespace App;
+ 
+class NotificarEmail
+{
+    public function notificar(){
+    	/*
+    	 * Um código muito legal que manda email
+    	 */
+         echo "Notificando por email..";
+    }
+}
+
+nós podemos passar essa classe como parâmetro, e ela já vai instanciada com o nome da variável determinado, isso acontece graças ao binding do IoC
+
+
+public function enviar(Request $request, Contato $contato, \App\NotificarEmail $notificar){
+	$contato->nome = $request->get('nome');
+	$contato->email = $request->get('email');
+	$contato->mensagem = $request->get('mensagem');
+ 
+	$contato->save();
+ 
+	//Notificando..
+	$notificar->notificar();
+ 
+	echo "Sua mensagem foi armazenada com sucesso! Código: " . $contato->id;
+    }
+
+
+// BINDS DO LARAVEL ALTERANDO CLASSES UTILIZADAS SEM MEXER NOS CONTROLLERS E INTERFACES
+    
+<?php
+ 
+namespace App;
+ 
+interface NotificacaoInterface
+{
+    public function notificar();
+}
+
+
+faça uma classe implementar essa interface:
+
+
+<?php
+ 
+namespace App;
+ 
+<?php
+ 
+namespace App;
+ 
+class NotificarPombo implements NotificacaoInterface
+{
+    public function notificar(){
+    	/*
+    	 * Um código muito legal que envia um pombo
+    	 */
+    	echo "Enviando o Pombo..";
+    }
+}
+
+
+    abra o arquivo app/Providers/AppServiceProvider.php
+
+    public function register()
+    {
+        //Informando que, ao injetar a NotificacaoInterface, retorne uma instancia de NotificarPombo
+        $this->app->bind(\App\NotificacaoInterface::class, \App\NotificarPombo::class);
+    }
+
+    Se quiser modificar a classe é só mudar a bind entre as que implementam essa classe, e então ele irá funcionar sem precisar modificar o controller;
+
+
+//CRIANDO VALIDAÇÃO DE CAMPO E TRATANDO ERROS
+
+
+php artisan make:request ContatoEnviarRequest
+
+esse comando criará uma classe de validação de requisição na pasta app/Http/Request
+
+CONFIGURANDO O ContatoEnviarRequest >>
+
+class ContatoEnviarRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+ 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'nome' => 'required',
+            'email' => 'required',
+            'mensagem' => 'required',
+        ];
+    }
+}
+
+TORNA O NOME, EMAIL E MENSAGEM "REQUIRED"
+
+você pode criar suas próprias validações, só acessar e pegar as regras na documentação oficial (Laravel available-validation-rules)
+
+Agora ao invés de mandar a requisição pela classe request, você envia pela classe que você implementou as regras de filtragem, ela vai funcionar sem problemas pois a classe estende a classe request, só mandar bala
+
+"Ao injetar o ContatoEnviarRequest  no método enviar, o laravel vai buscar os campos que deveriam existir na requisição (utilizando o método rules() ) e efetuar a verificação. Se a validação não passar, ele salva na sessão detalhes do erro e retorna um HTTP 302 redirecionando para a origem da requisição."
+
+Os erros ficam em uma variável chamada $erros, que pode ser acessada na view
+
+//Mostrando os erros com a variável $erros
+
+ @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+variável $erros é uma instancia da classe ViewErrorBag.
+
+Você pode modificar as mensagens de erro, mais informações em (/validation#custom-error-messages)
+
+
+// INSERINDO VALORES NAS TABELAS DO BANCO
+
+
+exemplo de inserção de colunas em uma table pelo migration
+
+    public function up()
+    {
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome');
+            $table->string('descricao');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('categorias');
+    }
+
+
+php artisan make:seed CategoriaSeed
+
+Este comando cria uma classe chamada “CategoriaSeed” que estende a “Seeder” dentro da pasta database/seeds/
+
+Edite a classe adicionando o código que insere as categorias:
+
+    public function run()
+    {
+        Categoria::insert(['nome' => 'Dúvidas', 'descricao' => 'Tire suas dúvidas agora mesmo!']);
+        Categoria::insert(['nome' => 'Sugestões', 'descricao' => 'Gostaria de sugerir algo?']);
+        Categoria::insert(['nome' => 'Outros', 'descricao' => 'Qualquer outro tipo de assunto']);
+    }
+
+
+EXECUTE OS VALORES COM O COMANDO php artisan db:seed --class="CategoriaSeed"
+
+
+
+//ASSOCIANDO DUAS ENTIDADES (CHAVE ESTRANGEIRA)
+
+Abra o model app/Contato.php
+
+
+
+<?php
+ 
+namespace App;
+ 
+use Illuminate\Database\Eloquent\Model;
+ 
+class Contato extends Model
+{
+    /*
+     * Belongs to Categoria
+     */
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
+}
+
+Ao fazer isso, podemos recuperar a categoria de um contato da seguinte forma: 
+
+$categoria = $contato->categoria;
+
+
+
+//ROTAS DA PÁGINA DE LOGIN
+
+Route::get('auth/login', ['as' => 'auth.form', 'uses' => 'Auth\AuthController@getLogin']);
+Route::post('auth/login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@postLogin']);
+Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+
+Route::get('/lista', ['middleware' => 'auth', 'uses' => 'ContatoController@lista']); --> agora para acessar /lista deve fazer login
