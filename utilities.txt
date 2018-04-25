@@ -1,6 +1,6 @@
 
 
-
+? importante saber o fluxograma dos acontecimentos, principalmente em um framework onde v?rios arquivos se chamam em cascata.
 
 bindParam
 

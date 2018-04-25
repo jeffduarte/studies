@@ -1,4 +1,23 @@
+composer create-project laravel/laravel blog
+
+
+CURSO LARAVEL ESPECIALIZATI
+
+--------------------------------------------------------------
+bcrypt('123456')        --> Coloca a senha no banco em formato encriptado
+
+
+
+-------------------------------------------------------------
+
+CONVERSE COM VOCÊ  >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 composer create-project --prefer-dist laravel/laravel nome_do_projeto
+
+Você deve alterar a timezone no arquivo config/app.php
+
+Se você não quiser usar o nome padrão das tabelas você deve colocar dentro da model private $table = "nome da tabela";
+
 
 migration                                     --> é responsável por criar o schema da tabela, você vai no arquivo de migration e coloca as colunas necessárias
 php artisan migrate                           --> executa o que está dentro do migrate atualizando assim o banco de dados
@@ -11,6 +30,12 @@ php artisan db:seed --class="CategoriaSeed"   --> Insere os dados no banco
 php artisan make:migration --table="contatos" alter_contatos_table --> adiciona migration para alteração em uma tabela
 php artisan migrate:rollback                  --> Retorna pro estado anterior (Aciona função down de dentro do migrate)
 php artisan make:auth                         --> cria auth na view
+
+
+@extends('app')                 --> Coloca o conteúdo dessa página dentro da página no extends
+@section('conteudo')            --> Define o nome da section, que vai ser chamada lá dentro da página que herda esse conteúdo
+@yield('conteudo')              --> Coloca o conteúdo da página herdada nessa sessão
+
 
 //CAMINHOS IMPORTANTES
 
